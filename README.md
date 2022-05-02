@@ -22,3 +22,6 @@ Create a new .java file/class with `package com.cunningdj.grokJava` at the top a
 The `br` command argument will clean, build, and run the given class all in one (you don't need to include the package name for the class).
 
 **Example**:  `gtool br GrokkingFastSlowPointers` will clean and build all .java files and then run the main method for the `GrokkingFastSlowPointers` class.
+
+### Verbose
+If for some reason you want a verbose printout of the stages being performed by `gtool`, simply change the [initialized `VERBOSE` value](https://github.com/CunningDJ/grokJava/blob/master/gtool#L9) to `1`.  Maybe I'll add a `-v` flag but I don't feel like it right now.
