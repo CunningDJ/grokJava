@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# GROKKING JAVA TOOL - Home made tool to build & run Grokking The Coding Interview study files
+
+DEFAULT_PACKAGE_NAME='com.cunningdj.grokJava'
+CLASSFILES_DIR=classes
+sd=`dirname $0`
+
+VERBOSE=0
+
+cd $sd
+
+function clean() {
+  log "Cleaning $CLASSFILES_DIR/ ..."
+  rm -r $CLASSFILES_DIR
+}
+
+function build() {
+  clean;
+  log "Building class files in $CLASSFILES_DIR/ ..."
+  mkdir $CLASSFILES_DIR
+  javac -d $CLASSFILES_DIR ./*.java
+}
+
+function run() {
+  classname=$1
+  full_classname="$DEFAULT_PACKAGE_NAME.$classname"
+  log "Running java class: $full_classname" 
+  cd $CLASSFILES_DIR
+  java "$full_classname"
+}
+
+function buildrun() {
+  build;
+  run $1
+}
+
+function log() {
+  if [[ $VERBOSE -eq 1 ]]; then
+    echo "$@";
+  fi
+}
+
+
+# main
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  cmd=$1
+  if [[ "$cmd" == "run" ]]; then
+    run "$2";
+  elif [[ "$cmd" == "br" || "$cmd" == "buildrun" ]]; then
+    buildrun "$2";
+  elif [[ "$cmd" == "build" ]]; then
+    build;
+  elif [[ "$cmd" == "clean" ]]; then
+    clean;
+  else
+    printf "USAGE: gtool CMD [...ARGS]\n\tCMD build|clean|run|br\n";
+  fi
+fi
