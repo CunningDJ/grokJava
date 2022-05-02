@@ -24,7 +24,7 @@ The `br` command argument will clean, build, and run the given class all in one 
 **Example**:  `gtool br GrokkingFastSlowPointers` will clean and build all .java files and then run the main method for the `GrokkingFastSlowPointers` class.
 
 ### `gtool new` - Easy Java Class Creator
-Feed a class name to this method (e.g. `gtool new GrokkingTopSort`) to convniently create a respective .java class file (e.g. `GrokkingTopSort.java`) with the appropriate package name (set with [`DEFAULT_PACKAGE_NAME`](https://github.com/CunningDJ/grokJava/blob/master/gtool#L8)) and boilerplate class code already added.
+Feed a class name to this method (e.g. `gtool new GrokkingTopSort`) to conveniently create a respective .java class file (e.g. `GrokkingTopSort.java`) with the appropriate package name (set with [`DEFAULT_PACKAGE_NAME`](https://github.com/CunningDJ/grokJava/blob/master/gtool#L8)) and boilerplate class code already added.
 
 ### Verbose
 If for some reason you want a verbose printout of the stages being performed by `gtool`, simply change the [initialized `VERBOSE` value](https://github.com/CunningDJ/grokJava/blob/master/gtool#L10) to `1`.  Maybe I'll add a `-v` flag but I don't feel like it right now.
