@@ -7,7 +7,7 @@ This is my code suite, including homemade build and run tools and testing librar
 Add methods to an existing .java file and tests in the class's `main()` method (using the Tester class for test utilities - see example main() methods in existing files)
 
 ### Creating a new Java Class & Tests
-Create a new .java file/class with `package com.cunningdj.grokJava` at the top and do the same.
+Create a new .java file/class with `package com.cunningdj.grokJava` at the top (or whatever you'd like to set the `DEFAULT_PACKAGE_NAME`](https://github.com/CunningDJ/grokJava/blob/master/gtool#L5) to) and do the same.
 
 
 ## `gtool` - Home Made Clean, Build & Run Tool

@@ -12,7 +12,9 @@ cd $sd
 
 function clean() {
   log "Cleaning $CLASSFILES_DIR/ ..."
-  rm -r $CLASSFILES_DIR
+  if [[ -d $CLASSFILES_DIR ]]; then
+    rm -r $CLASSFILES_DIR
+  fi
 }
 
 function build() {
