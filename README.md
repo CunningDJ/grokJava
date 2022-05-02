@@ -14,7 +14,7 @@ Create a new .java file/class with `package com.cunningdj.grokJava` at the top a
 * The command line tool `gtool` can handle all `clean`, `build`, and `run` operations, using these as the respective command argument (e.g. `gtool clean`).
 * Run the tool without an argument to see the available commands.  Run with commands to perform the desired operations.
 
-### Be Aware
+### BE AWARE
 * `gtool build` will automatically `clean` before building.
 * `gtool run` will neither build nor clean automatically.  To get all of these in one, use the `gtool br` command (see below)
 
