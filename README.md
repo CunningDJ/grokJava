@@ -1,7 +1,7 @@
 # Grokking The Coding Interview: Java Practice Suite
 This is my code suite, including homemade build and run tools and testing library, for practicing the Grokking the Coding Interview algo patterns in Java (and also refreshing on some Java and bash basics).
 
-## Instructions
+# Instructions
 ## Creating/Adding Java Classes & Tests
 ### Adding to an Existing Java Class & Tests
 Add methods to an existing .java file and tests in the class's `main()` method (using the Tester class for test utilities - see example main() methods in existing files)
