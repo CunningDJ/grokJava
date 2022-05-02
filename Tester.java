@@ -14,6 +14,7 @@ public class Tester {
 
         Tester tester = new Tester();
 
+        // Should print DUMMY #1 to #3 successively
         tester.printTestSuccess(testTitle);
         tester.printTestSuccess(testTitle);
         tester.printTestSuccess(testTitle);
