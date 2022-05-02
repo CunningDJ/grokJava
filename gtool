@@ -2,14 +2,19 @@
 
 # GROKKING JAVA TOOL - Home made tool to build & run Grokking The Coding Interview study files
 
+# CONSTANTS
+## Change this to whatever value you'd like to package the files under, and make sure to update the all
+##   of the .java files' "package XX;" header lines accordingly
 DEFAULT_PACKAGE_NAME='com.cunningdj.grokJava'
-CLASSFILES_DIR=classes
-sd=`dirname $0`
-
+## Change this to 1 if you want a printout of each step the tool is undergoing
 VERBOSE=0
+CLASSFILES_DIR=classes
 
+## Moving into script directory
+sd=`dirname $0`
 cd $sd
 
+# COMMANDS
 function clean() {
   log "Cleaning $CLASSFILES_DIR/ ..."
   if [[ -d $CLASSFILES_DIR ]]; then
@@ -44,7 +49,7 @@ function log() {
 }
 
 
-# main
+# MAIN
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   cmd=$1
   if [[ "$cmd" == "run" ]]; then

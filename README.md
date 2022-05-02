@@ -7,7 +7,7 @@ This is my code suite, including homemade build and run tools and testing librar
 Add methods to an existing .java file and tests in the class's `main()` method (using the Tester class for test utilities - see example main() methods in existing files)
 
 ### Creating a new Java Class & Tests
-Create a new .java file/class with `package com.cunningdj.grokJava` at the top (or whatever you'd like to set the [`DEFAULT_PACKAGE_NAME`](https://github.com/CunningDJ/grokJava/blob/master/gtool#L5) to) and do the same.
+Create a new .java file/class with `package com.cunningdj.grokJava` at the top (or whatever you'd like to set the [`DEFAULT_PACKAGE_NAME`](https://github.com/CunningDJ/grokJava/blob/master/gtool#L8) to) and do the same.
 
 
 ## `gtool` - Home Made Clean, Build & Run Tool
@@ -24,4 +24,4 @@ The `br` command argument will clean, build, and run the given class all in one 
 **Example**:  `gtool br GrokkingFastSlowPointers` will clean and build all .java files and then run the main method for the `GrokkingFastSlowPointers` class.
 
 ### Verbose
-If for some reason you want a verbose printout of the stages being performed by `gtool`, simply change the [initialized `VERBOSE` value](https://github.com/CunningDJ/grokJava/blob/master/gtool#L9) to `1`.  Maybe I'll add a `-v` flag but I don't feel like it right now.
+If for some reason you want a verbose printout of the stages being performed by `gtool`, simply change the [initialized `VERBOSE` value](https://github.com/CunningDJ/grokJava/blob/master/gtool#L10) to `1`.  Maybe I'll add a `-v` flag but I don't feel like it right now.
