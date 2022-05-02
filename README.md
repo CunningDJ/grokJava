@@ -1,5 +1,5 @@
 # Grokking The Coding Interview: Java Practice Suite
-This is my code suite, including homemade build and run tools and testing library, for practicing the Grokking the Coding Interview algo patterns in Java (and also refreshing on some Java and bash basics).
+This is my code suite, including homemade build and run tools and testing library, for practicing the [Grokking the Coding Interview](https://www.educative.io/courses/grokking-the-coding-interview) algo patterns in Java (and also refreshing on some Java and bash basics).
 
 # Instructions
 ## Creating/Adding Java Classes & Tests
