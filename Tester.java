@@ -54,6 +54,22 @@ public class Tester {
         }
     }
 
+    public void doubleEquals(double expected, double actual, String testTitle) {
+        if (expected == actual) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, String.valueOf(expected), String.valueOf(actual));
+        }
+    }
+
+    public void isNull(Object actual, String testTitle) {
+        if (actual == null) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, String.valueOf(null), String.valueOf(actual));
+        }
+    }
+
 
     // PRIVATE
     private void updateTestCounter(String testTitle) {
