@@ -46,8 +46,8 @@ public class GrokkingTwoHeaps {
         }
 
 
-        // Could also separate the min/max into two separate while loops for further optimization, but
-        //   putting both checks in one while loop here to demonstrate the shared code
+        // Could also separate the min/max logic into two separate while loops for further optimization (max 1 condition 
+        //  checked per loop), but I'm putting both checks in one while loop here to demonstrate the shared code
         while (i < n) {
             if (// Min Heap: pushing LARGEST on
                 (checkingLargest && nums[i] > heap.peek()) ||
