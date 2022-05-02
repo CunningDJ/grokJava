@@ -30,7 +30,7 @@ function build() {
 }
 
 function run() {
-  classname=$1
+  classname="$1"
   full_classname="$DEFAULT_PACKAGE_NAME.$classname"
   log "Running java class: $full_classname" 
   cd $CLASSFILES_DIR
@@ -39,12 +39,33 @@ function run() {
 
 function buildrun() {
   build;
-  run $1
+  run "$1"
 }
 
 function log() {
   if [[ $VERBOSE -eq 1 ]]; then
     echo "$@";
+  fi
+}
+
+function new() {
+  classname="$1"
+  javafile_name="$classname.java"
+  if [[ "$classname" == "" ]]; then
+    printf "USAGE: gtool new CLASSNAME\n\tCLASSNAME  Name of the java class.  A file [CLASSNAME].java will be made at the top level, with the 'package $DEFAULT_PACKAGE_NAME;' (set in gtool via DEFAULT_PACKAGE_NAME) already added at the top along with the basic class declaration.\n";
+    exit 1;
+  elif [[ -e "$javafile_name" ]]; then
+    echo "ERROR: $javafile_name already exists!";
+    exit 1;
+  else
+    # Create the file
+    log "Creating new java file $javafile_name ..."
+    touch $javafile_name;
+    printf "package $DEFAULT_PACKAGE_NAME;\n\nclass $classname {\n" >> $javafile_name;
+    printf "\tpublic static void main(String[] args) {\n\t\tTester tester = new Tester();\n" >> $javafile_name;
+    printf "\t\tString testTitle=\"\";\n" >> $javafile_name;
+    printf "\n\t\t// TEST CLASS METHODS HERE USING TESTER CLASS\n" >> $javafile_name;
+    printf "\t}\n}\n" >> $javafile_name;
   fi
 }
 
@@ -60,6 +81,8 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     build;
   elif [[ "$cmd" == "clean" ]]; then
     clean;
+  elif [[ "$cmd" == "new" ]]; then
+    new "$2";
   else
     printf "USAGE: gtool CMD [...ARGS]\n\tCMD build|clean|run|br\n";
   fi
