@@ -84,6 +84,6 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   elif [[ "$cmd" == "new" ]]; then
     new "$2";
   else
-    printf "USAGE: gtool CMD [...ARGS]\n\tCMD build|clean|run|br\n";
+    printf "USAGE: gtool CMD [...ARGS]\n\tCMD build|clean|run|br|new\n";
   fi
 fi
