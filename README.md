@@ -7,7 +7,7 @@ This is my code suite, including homemade build and run tools and testing librar
 Add methods to an existing .java file and tests in the class's `main()` method (using the Tester class for test utilities - see example main() methods in existing files)
 
 ### Creating a new Java Class & Tests - `gtool new`
-To create a new .java file/class with `package com.cunningdj.grokJava` at the top (or whatever you set the [`DEFAULT_PACKAGE_NAME`](https://github.com/CunningDJ/grokJava/blob/master/gtool#L8) to), run `gtool new [classname]`, e.g. `gtool new GrokkingTopSort`, which will create the corresponding .java file (e.g. GrokkingTopSort.java) with initial boilerplate code at the top level.
+To create a new .java file/class, run `gtool new [classname]`, e.g. `gtool new GrokkingTopSort`, which will create the corresponding .java file (e.g. GrokkingTopSort.java) with initial boilerplate code at the top level.
 
 
 ## `gtool` - Home Made Clean, Build & Run Tool
