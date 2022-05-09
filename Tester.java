@@ -1,6 +1,8 @@
 package com.cunningdj.grokJava;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Tester {
     HashMap<String, Integer> testCounter;
@@ -47,6 +49,14 @@ public class Tester {
         }
     }
 
+    public void testIntListofListsEquals(List<List<Integer>> expected, List<List<Integer>> actual, String testTitle) {
+        if (expected.containsAll(actual)) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, toString(expected), toString(actual));
+        }
+    }
+
     private static String toString(int[] values) {
         if (values == null) {
             return "null";
@@ -57,6 +67,31 @@ public class Tester {
         String str = String.valueOf(values[0]);
         for (int i=1; i < values.length; ++i) {
             str += "-" + String.valueOf(values[i]);
+        }
+        return str;
+    }
+
+    private static String toString(List<List<Integer>> allValues) {
+        if (allValues == null) {
+            return "null";
+        }
+        if (allValues.size() < 1) {
+            return "";
+        }
+        String str = "";
+        for (int i=0; i < allValues.size(); ++i) {
+            if (i > 0) {
+                str += ",[";
+            } else {
+                str += "[";
+            }
+            for (int j=0; j < allValues.get(i).size(); ++j) {
+                if (j > 0) {
+                    str += ",";
+                }
+                str += String.valueOf(allValues.get(i).get(j));
+            }
+            str += "]";
         }
         return str;
     }
