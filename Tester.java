@@ -1,4 +1,5 @@
 package com.cunningdj.grokJava;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Tester {
@@ -30,6 +31,47 @@ public class Tester {
 
 
     // PUBLIC
+    public void testEquals(Object expected, Object actual, String testTitle) {
+        if (expected == actual) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, String.valueOf(expected), String.valueOf(actual));
+        }
+    }
+
+    public void testIntArrayEquals(int[] expected, int[] actual, String testTitle) {
+        if (Arrays.equals(expected, actual)) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, toString(expected), toString(actual));
+        }
+    }
+
+    private static String toString(int[] values) {
+        if (values == null) {
+            return "null";
+        }
+        if (values.length < 1) {
+            return "";
+        }
+        String str = String.valueOf(values[0]);
+        for (int i=1; i < values.length; ++i) {
+            str += "-" + String.valueOf(values[i]);
+        }
+        return str;
+    }
+
+    private static String toString(Object[] values) {
+        if (values.length < 1) {
+            return "";
+        }
+        String str = String.valueOf(values[0]);
+        for (int i=1; i < values.length; ++i) {
+            str += "-" + String.valueOf(values[i]);
+        }
+        return str;
+    }
+
     public void booleanEquals(boolean expected, boolean actual, String testTitle) {
         if (expected == actual) {
             printTestSuccess(testTitle);
