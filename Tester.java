@@ -41,6 +41,22 @@ public class Tester {
         }
     }
 
+    public void testDoubleArrayEquals(double[] expected, double[] actual, String testTitle) {
+        if (Arrays.equals(expected, actual)) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, toString(expected), toString(actual));
+        }
+    }
+
+    public void testFloatArrayEquals(float[] expected, float[] actual, String testTitle) {
+        if (Arrays.equals(expected, actual)) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, toString(expected), toString(actual));
+        }
+    }
+
     public void testIntArrayEquals(int[] expected, int[] actual, String testTitle) {
         if (Arrays.equals(expected, actual)) {
             printTestSuccess(testTitle);
@@ -58,6 +74,34 @@ public class Tester {
     }
 
     private static String toString(int[] values) {
+        if (values == null) {
+            return "null";
+        }
+        if (values.length < 1) {
+            return "";
+        }
+        String str = String.valueOf(values[0]);
+        for (int i=1; i < values.length; ++i) {
+            str += "-" + String.valueOf(values[i]);
+        }
+        return str;
+    }
+
+    private static String toString(float[] values) {
+        if (values == null) {
+            return "null";
+        }
+        if (values.length < 1) {
+            return "";
+        }
+        String str = String.valueOf(values[0]);
+        for (int i=1; i < values.length; ++i) {
+            str += "-" + String.valueOf(values[i]);
+        }
+        return str;
+    }
+
+    private static String toString(double[] values) {
         if (values == null) {
             return "null";
         }
