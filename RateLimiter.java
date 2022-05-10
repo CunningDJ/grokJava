@@ -11,7 +11,6 @@ import java.util.LinkedList;
  */
 class RateLimiter {
 	private HashMap<String, LinkedList<LocalDateTime>> dtQueue;
-	private final int SECONDS_PER_MINUTE = 60;
 	public final int MAX_REQS_PER_MINUTE;
 	// FOR TESTING ONLY (otherwise null)
 	private final LocalDateTime CURRENT_DT_OVERRIDE;
@@ -38,7 +37,7 @@ class RateLimiter {
 		// False, and doesn't add it to the queue
 		tester.isFalse(rl.newRequest(new Request(TEST_USER, RateLimiter.makeTestTime(10, 59))), testTitle);
 		// Different user; shouldn't fail
-		tester.isFalse(rl.newRequest(new Request(OTHER_TEST_USER, RateLimiter.makeTestTime(10, 59))), testTitle);
+		tester.isTrue(rl.newRequest(new Request(OTHER_TEST_USER, RateLimiter.makeTestTime(10, 59))), testTitle);
 		// True; Skipoed the 10:59 request, and 10:00 request is now > 60s old, leaving 2 within the window during check
 		tester.isTrue(rl.newRequest(new Request(TEST_USER, RateLimiter.makeTestTime(11, 01))), testTitle);
 	}
@@ -48,7 +47,7 @@ class RateLimiter {
 		if (dtQueue.containsKey(req.user)) {
 			if (dtQueue.get(req.user).size() == MAX_REQS_PER_MINUTE) {
 				while (dtQueue.get(req.user).size() > 0
-					&& Duration.between(dtQueue.get(req.user).peek(), req.dt).getSeconds() > SECONDS_PER_MINUTE) {
+					&& Duration.between(dtQueue.get(req.user).peek(), req.dt).toMinutes() > 0) {
 						dtQueue.get(req.user).poll();
 				}
 			}
@@ -76,13 +75,13 @@ class RateLimiter {
 		public LocalDateTime dt;
 		public String user;
 		public Request(String user) {
-
 			this.user = user;
 			this.dt = LocalDateTime.now();
 		}
 
 		// TESTING ONLY
 		private Request(String user, LocalDateTime dt) {
+			this.user = user;
 			this.dt = dt;
 		}
 	}
