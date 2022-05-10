@@ -1,28 +1,25 @@
 package com.cunningdj.grokJava;
 
-import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.HashMap;
+import java.util.LinkedList;
 
+/*
+ * RATE LIMITER - *SLIDING WINDOW ALGORITHM*
+ */
 class RateLimiter {
-	private LinkedList<LocalDateTime> dtQueue;
+	private HashMap<String, LinkedList<LocalDateTime>> dtQueue;
 	private final int SECONDS_PER_MINUTE = 60;
 	public final int MAX_REQS_PER_MINUTE;
 	// FOR TESTING ONLY (otherwise null)
 	private final LocalDateTime CURRENT_DT_OVERRIDE;
 
 	public RateLimiter(int maxReqsPerMinute) {
-		this.dtQueue = new LinkedList<>();
+		this.dtQueue = new HashMap<>();
 		this.MAX_REQS_PER_MINUTE = maxReqsPerMinute;
 		this.CURRENT_DT_OVERRIDE = null;
-	}
-
-	private RateLimiter(int maxReqsPerMinute, LocalDateTime currentDtOverride) {
-		// FOR TESTING ONLY
-		this.dtQueue = new LinkedList<>();
-		this.MAX_REQS_PER_MINUTE = maxReqsPerMinute;
-		this.CURRENT_DT_OVERRIDE = currentDtOverride;
 	}
 
 	// MAIN
@@ -32,26 +29,36 @@ class RateLimiter {
 
 		// TEST CLASS METHODS HERE USING TESTER CLASS
 		testTitle = "RATE_LIMITER";
+		String TEST_USER = "El Duderino";
+		String OTHER_TEST_USER = "Mr. Lebowski";
 		RateLimiter rl = new RateLimiter(3);
-		tester.isTrue(rl.newRequest(new Request(RateLimiter.makeTestTime(10, 0))), testTitle);
-		tester.isTrue(rl.newRequest(new Request(RateLimiter.makeTestTime(10, 20))), testTitle);
-		tester.isTrue(rl.newRequest(new Request(RateLimiter.makeTestTime(10, 40))), testTitle);
+		tester.isTrue(rl.newRequest(new Request(TEST_USER, RateLimiter.makeTestTime(10, 0))), testTitle);
+		tester.isTrue(rl.newRequest(new Request(TEST_USER, RateLimiter.makeTestTime(10, 20))), testTitle);
+		tester.isTrue(rl.newRequest(new Request(TEST_USER, RateLimiter.makeTestTime(10, 40))), testTitle);
 		// False, and doesn't add it to the queue
-		tester.isFalse(rl.newRequest(new Request(RateLimiter.makeTestTime(10, 59))), testTitle);
+		tester.isFalse(rl.newRequest(new Request(TEST_USER, RateLimiter.makeTestTime(10, 59))), testTitle);
+		// Different user; shouldn't fail
+		tester.isFalse(rl.newRequest(new Request(OTHER_TEST_USER, RateLimiter.makeTestTime(10, 59))), testTitle);
 		// True; Skipoed the 10:59 request, and 10:00 request is now > 60s old, leaving 2 within the window during check
-		tester.isTrue(rl.newRequest(new Request(RateLimiter.makeTestTime(11, 01))), testTitle);
+		tester.isTrue(rl.newRequest(new Request(TEST_USER, RateLimiter.makeTestTime(11, 01))), testTitle);
 	}
 
 	// PUBLIC
 	public boolean newRequest(Request req) {
-		if (dtQueue.size() == MAX_REQS_PER_MINUTE) {
-			while (dtQueue.size() > 0
-				&& Duration.between(dtQueue.peek(), req.dt).getSeconds() > SECONDS_PER_MINUTE) {
-					dtQueue.poll();
+		if (dtQueue.containsKey(req.user)) {
+			if (dtQueue.get(req.user).size() == MAX_REQS_PER_MINUTE) {
+				while (dtQueue.get(req.user).size() > 0
+					&& Duration.between(dtQueue.get(req.user).peek(), req.dt).getSeconds() > SECONDS_PER_MINUTE) {
+						dtQueue.get(req.user).poll();
+				}
 			}
+		} else {
+			LinkedList<LocalDateTime> userRequestQ = new LinkedList<>();
+			dtQueue.put(req.user, userRequestQ);
 		}
-		if (dtQueue.size() < MAX_REQS_PER_MINUTE) {
-			dtQueue.add(req.dt);
+
+		if (dtQueue.get(req.user).size() < MAX_REQS_PER_MINUTE) {
+			dtQueue.get(req.user).add(req.dt);
 			return true;
 		} else {
 			return false;
@@ -67,12 +74,15 @@ class RateLimiter {
 	// Request
 	static class Request {
 		public LocalDateTime dt;
-		public Request() {
+		public String user;
+		public Request(String user) {
+
+			this.user = user;
 			this.dt = LocalDateTime.now();
 		}
 
 		// TESTING ONLY
-		private Request(LocalDateTime dt) {
+		private Request(String user, LocalDateTime dt) {
 			this.dt = dt;
 		}
 	}
