@@ -1,6 +1,7 @@
 package com.cunningdj.grokJava;
 
 import java.util.HashMap;
+import java.util.HashSet;
 
 class GrokkingSlidingWindow {
 	public static void main(String[] args) {
@@ -25,6 +26,44 @@ class GrokkingSlidingWindow {
 		tester.intEquals(5, maxFruitsTwoBaskets(new char[]{A,C,A,A,A,B,B}), testTitle);
 		// TESTING: middle max
 		tester.intEquals(5, maxFruitsTwoBaskets(new char[]{A,C,A,A,A,B,B,C,A}), testTitle);
+
+		// LONGEST_SUBSTRING_DISTINCT_CHARS
+		testTitle = "LONGEST_SUBSTRING_DISTINCT_CHARS";
+		// TESTING: middle
+		tester.intEquals(4, longestSubstringDistinctCharacters("aaabcdaa"), testTitle);
+		// TESTING: beginning
+		tester.intEquals(4, longestSubstringDistinctCharacters("abcdaaa"), testTitle);
+		// TESTING: end
+		tester.intEquals(4, longestSubstringDistinctCharacters("aaabcda"), testTitle);
+		// TESTING: all same
+		tester.intEquals(1, longestSubstringDistinctCharacters("aaaa"), testTitle);
+		// TESTING: all unique
+		tester.intEquals(5, longestSubstringDistinctCharacters("abcde"), testTitle);
+		// TESTING: only one
+		tester.intEquals(1, longestSubstringDistinctCharacters("a"), testTitle);
+	}
+
+	public static int longestSubstringDistinctCharacters(String str) {
+		int n = str.length();
+		if (n < 1) {
+			return 0;
+		}
+		int start = 0;
+		int end = 0;
+		HashSet<Character> prevChars = new HashSet<Character>();
+		int maxLength = 0;
+		int currLength = 0;
+		while (end < n) {
+			char c = str.charAt(end);
+			while (start < end && prevChars.contains(c)) {
+				prevChars.remove(str.charAt(start));
+				++start;
+			}
+			prevChars.add(c);
+			maxLength = Math.max(maxLength, prevChars.size());
+			++end;
+		}
+		return maxLength;
 	}
 
 	public static int maxFruitsTwoBaskets(char[] fruits) {
