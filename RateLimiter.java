@@ -7,9 +7,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /*
- * RATE LIMITER - *SLIDING WINDOW ALGORITHM*
+ * RATE LIMITER - SLIDING WINDOW PER-USER ALGORITHM
  */
 class RateLimiter {
+	// user ID : queue of request DTs (phased out of window as-you-go)
 	private HashMap<String, LinkedList<LocalDateTime>> dtQueue;
 	public final int MAX_REQS_PER_MINUTE;
 	// FOR TESTING ONLY (otherwise null)
