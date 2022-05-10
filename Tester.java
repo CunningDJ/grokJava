@@ -81,6 +81,14 @@ public class Tester {
         }
     }
 
+    public void isTrue(boolean actual, String testTitle) {
+        booleanEquals(true, actual, testTitle);
+    }
+
+    public void isFalse(boolean actual, String testTitle) {
+        booleanEquals(false, actual, testTitle);
+    }
+
     public void listNodeEquals(ListNode expected, ListNode actual, String testTitle) {
         if (expected == actual) {
             printTestSuccess(testTitle);
