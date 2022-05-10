@@ -18,9 +18,9 @@ class GrokkingTopSort {
 		ClassDependencyPair pair4 = new ClassDependencyPair(1,4);
 		ClassDependencyPair circularPair = new ClassDependencyPair(4,2);
 		ClassDependencyPair[] pairs = {pair1, pair2, pair3, pair4};
-		tester.testIntArrayEquals(new int[]{1,2,3,4}, classesOrder(4, pairs), testTitle);
+		tester.intArrayEquals(new int[]{1,2,3,4}, classesOrder(4, pairs), testTitle);
 		ClassDependencyPair[] pairs2 = {pair1, pair2, pair3, pair4, circularPair};
-		tester.testIntArrayEquals(null, classesOrder(5, pairs2), testTitle);
+		tester.intArrayEquals(null, classesOrder(5, pairs2), testTitle);
 		
 	}
 

@@ -41,7 +41,7 @@ public class Tester {
         }
     }
 
-    public void testDoubleArrayEquals(double[] expected, double[] actual, String testTitle) {
+    public void doubleArrayEquals(double[] expected, double[] actual, String testTitle) {
         if (Arrays.equals(expected, actual)) {
             printTestSuccess(testTitle);
         } else {
@@ -49,7 +49,7 @@ public class Tester {
         }
     }
 
-    public void testFloatArrayEquals(float[] expected, float[] actual, String testTitle) {
+    public void floatArrayEquals(float[] expected, float[] actual, String testTitle) {
         if (Arrays.equals(expected, actual)) {
             printTestSuccess(testTitle);
         } else {
@@ -57,7 +57,7 @@ public class Tester {
         }
     }
 
-    public void testIntArrayEquals(int[] expected, int[] actual, String testTitle) {
+    public void intArrayEquals(int[] expected, int[] actual, String testTitle) {
         if (Arrays.equals(expected, actual)) {
             printTestSuccess(testTitle);
         } else {
@@ -65,13 +65,56 @@ public class Tester {
         }
     }
 
-    public void testIntListofListsEquals(List<List<Integer>> expected, List<List<Integer>> actual, String testTitle) {
+    public void intListofListsEquals(List<List<Integer>> expected, List<List<Integer>> actual, String testTitle) {
         if (expected.containsAll(actual)) {
             printTestSuccess(testTitle);
         } else {
             printTestFailure(testTitle, toString(expected), toString(actual));
         }
     }
+
+    public void booleanEquals(boolean expected, boolean actual, String testTitle) {
+        if (expected == actual) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, String.valueOf(expected), String.valueOf(actual));
+        }
+    }
+
+    public void listNodeEquals(ListNode expected, ListNode actual, String testTitle) {
+        if (expected == actual) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, String.valueOf(expected), String.valueOf(actual));
+        }
+    }
+
+    public void intEquals(int expected, int actual, String testTitle) {
+        if (expected == actual) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, String.valueOf(expected), String.valueOf(actual));
+        }
+    }
+
+    public void doubleEquals(double expected, double actual, String testTitle) {
+        if (expected == actual) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, String.valueOf(expected), String.valueOf(actual));
+        }
+    }
+
+    public void isNull(Object actual, String testTitle) {
+        if (actual == null) {
+            printTestSuccess(testTitle);
+        } else {
+            printTestFailure(testTitle, String.valueOf(null), String.valueOf(actual));
+        }
+    }
+
+
+    // PRIVATE
 
     private static String toString(int[] values) {
         if (values == null) {
@@ -151,48 +194,6 @@ public class Tester {
         return str;
     }
 
-    public void booleanEquals(boolean expected, boolean actual, String testTitle) {
-        if (expected == actual) {
-            printTestSuccess(testTitle);
-        } else {
-            printTestFailure(testTitle, String.valueOf(expected), String.valueOf(actual));
-        }
-    }
-
-    public void listNodeEquals(ListNode expected, ListNode actual, String testTitle) {
-        if (expected == actual) {
-            printTestSuccess(testTitle);
-        } else {
-            printTestFailure(testTitle, String.valueOf(expected), String.valueOf(actual));
-        }
-    }
-
-    public void intEquals(int expected, int actual, String testTitle) {
-        if (expected == actual) {
-            printTestSuccess(testTitle);
-        } else {
-            printTestFailure(testTitle, String.valueOf(expected), String.valueOf(actual));
-        }
-    }
-
-    public void doubleEquals(double expected, double actual, String testTitle) {
-        if (expected == actual) {
-            printTestSuccess(testTitle);
-        } else {
-            printTestFailure(testTitle, String.valueOf(expected), String.valueOf(actual));
-        }
-    }
-
-    public void isNull(Object actual, String testTitle) {
-        if (actual == null) {
-            printTestSuccess(testTitle);
-        } else {
-            printTestFailure(testTitle, String.valueOf(null), String.valueOf(actual));
-        }
-    }
-
-
-    // PRIVATE
     private void updateTestCounter(String testTitle) {
         if (!testCounter.containsKey(testTitle)) {
             testCounter.put(testTitle, 0);

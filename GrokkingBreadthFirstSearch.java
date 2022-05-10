@@ -14,7 +14,7 @@ class GrokkingBreadthFirstSearch {
 		// LEVEL_VALUES
 		testTitle = "LEVEL_VALUES";
 		TreeNode root = createTestTree();
-		tester.testIntListofListsEquals(testTreeLevelValues(), levelValues(root), testTitle);
+		tester.intListofListsEquals(testTreeLevelValues(), levelValues(root), testTitle);
 	}
 
 	/*
