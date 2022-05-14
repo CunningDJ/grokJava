@@ -1,5 +1,6 @@
 package com.cunningdj.grokJava;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -41,6 +42,20 @@ class GrokkingSlidingWindow {
 		tester.intEquals(5, longestSubstringDistinctCharacters("abcde"), testTitle);
 		// TESTING: only one
 		tester.intEquals(1, longestSubstringDistinctCharacters("a"), testTitle);
+
+		// REPEATING_ONES_WITH_REPLACEMENT
+		testTitle = "REPEATING_ONES_WITH_REPLACEMENT";
+		// TESTING: k=1 (right/left/middle zero)
+		tester.intEquals(4, repeatingOnesWithReplacement(new int[]{0,1,1,1}, 1), testTitle);
+		tester.intEquals(4, repeatingOnesWithReplacement(new int[]{1,0,1,1}, 1), testTitle);
+		tester.intEquals(4, repeatingOnesWithReplacement(new int[]{1,1,1,0}, 1), testTitle);
+		// TESTING: k=0, all zeroes
+		tester.intEquals(0, repeatingOnesWithReplacement(new int[]{0,0}, 0), testTitle);
+		// TESTING: k=0, (right/left/middle zero)
+		tester.intEquals(3, repeatingOnesWithReplacement(new int[]{0,1,1,1}, 0), testTitle);
+		tester.intEquals(2, repeatingOnesWithReplacement(new int[]{1,0,1,1}, 0), testTitle);
+		tester.intEquals(3, repeatingOnesWithReplacement(new int[]{1,1,1,0}, 0), testTitle);
+		// tester.intEquals(00, repeatingOnesWithReplacement(new int[]{}, 00), testTitle);
 	}
 
 	public static int longestSubstringDistinctCharacters(String str) {
@@ -121,5 +136,51 @@ class GrokkingSlidingWindow {
 			++i;
 		}
 		return averages;
+	}
+
+	public static int repeatingOnesWithReplacement(int[] zeroes_ones, int k) {
+		// Because I want to use the generalized solution to demonstrate how the logic generalizes,
+		//  I'll convert int[] to Integer[] (so it can match Object[]).  This wouldn't be as efficient
+		//  as just non-generalizing this logic for int[], but we can extrapolate that solution
+		//  pretty easily from the logic in repeatingValidValuesLengthWithReplacement
+		Integer[] converted = Arrays.stream(zeroes_ones).boxed().toArray(Integer[]::new);
+		return repeatingValidValuesLengthWithReplacement(converted, 1, k);
+	}
+
+	public static int repeatingValidValuesLengthWithReplacement(Object[] values, Object VALID_VAL, int k) {
+		/*
+		 * Given an array of values and a valid value V and a number K, find the longest subarray
+		 *  with only these valid values if you can replace K values
+		 */
+		// Space: O(1)
+		int maxLength = 0;
+		int start = 0;
+		int invalidValsCount = 0;
+
+		// Time: O(n)
+		for (int end=0; end < values.length; ++end) {
+			if (values[end] != VALID_VAL) {
+				invalidValsCount++;
+			}
+			if (invalidValsCount > k) {
+				// Time: O(n-1) max *over the course of the algo.  start can only increment upward and reach a max value of n-1
+				while (start < end && values[start] == VALID_VAL) {
+					start++;
+				}
+				// Time: O(1)
+				if (start < end) {
+					start++;
+					invalidValsCount--;
+				}
+			}
+			// Time: O(1)
+			if (invalidValsCount <= k) {
+				maxLength = Math.max(maxLength, end-start+1);
+			}
+		}
+
+		// Total Time: O(n) ( O(n) + O(n-1) + O(1) )
+		// Total Space: O(1)
+		return maxLength;
 	}
 }
